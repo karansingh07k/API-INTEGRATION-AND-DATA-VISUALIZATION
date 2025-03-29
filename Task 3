@@ -1,0 +1,20 @@
+import random
+import spacy
+nlp = spacy.load("en_core_web_sm")
+def chatbot_response(user_input):
+    responses = {
+        "hello": ["Hi!", "Hello!", "Hey there!"],
+        "how are you": ["I'm good, thanks!", "Doing well, what about you?"],
+        "bye": ["Goodbye!", "See you later!", "Take care!"]
+    }
+        doc = nlp(user_input.lower())
+    for key in responses:
+        if key in user_input.lower():
+            return random.choice(responses[key])
+        return "I'm not sure how to respond to that."
+while True:
+    user_input = input("You: ")
+    if user_input.lower() in ["exit", "quit", "bye"]:
+        print("Chatbot: Goodbye!")
+        break
+    print("Chatbot:", chatbot_response(user_input))
