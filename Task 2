@@ -1,0 +1,13 @@
+import pandas as pd
+from fpdf import FPDF
+data = pd.read_csv("data.csv")
+summary = data.describe()
+pdf = FPDF()
+pdf.set_auto_page_break(auto=True, margin=15)
+pdf.add_page()
+pdf.set_font("Arial", size=12)
+pdf.cell(200, 10, "Automated Report", ln=True, align="C")
+pdf.ln(10)
+for col in summary.columns:
+    pdf.cell(0, 10, f"{col} - Avg: {summary[col]['mean']:.2f}, Max: {summary[col]['max']}", ln=True)
+pdf.output("Report.pdf")
